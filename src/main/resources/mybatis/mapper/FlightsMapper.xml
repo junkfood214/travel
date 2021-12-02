@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.FlightsMapper">
+    <select id="queryFlightsList" resultType="Flights">
+        select * from travel.Flights;
+    </select>
+
+    <select id="queryFlightsById" parameterType="String" resultType="Flights">
+        select * from travel.Flights where flightNum = #{flightNum};
+    </select>
+
+    <insert id="addFlights" parameterType="Flights">
+        insert into travel.Flights(flightNum, price,numSeats,numAvail,FromCity,ArivCity) VALUES (#{flightNum},#{price},#{numSeats},#{numAvail},#{FromCity},#{ArivCity});
+    </insert>
+
+    <update id="updateFlights" parameterType="Flights">
+        update travel.Flights set price = #{price},numAvail=#{numAvail},numSeats=#{numSeats},FromCity=#{FromCity},ArivCity=#{ArivCity} where flightNum = #{flightNum};
+    </update>
+
+    <delete id="deleteFlights" parameterType="String">
+        delete from travel.Flights where flightNum = #{flightNum};
+    </delete>
+</mapper>

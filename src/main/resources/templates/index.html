@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="UTF-8">
+ <title>html5调用摄像头并拍照</title>
+ <meta content="" name="Keywords"/>
+ <meta content="" name="Description"/>
+ <meta name="viewport"
+       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+ <meta name="format-detection" content="telephone=no, email=no">
+ <meta name="HandheldFriendly" content="true"/>
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+
+
+<style type="text/css">
+ * {
+  padding: 0;
+  margin: 0;
+ }
+
+ body {
+  padding: 0 10px
+ }
+
+ h1, h3, h4 {
+  margin: 10px 0;
+ }
+
+ #video {
+  background: #000;
+  display: block;
+ }
+
+ #snap {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px 0;
+ }
+
+ #photo {
+  width: 720px;
+  height: 720px;
+  background-repeat: no-repeat;
+  background: #000
+ }
+
+ #text {
+  width: 720px;
+  height: 200px;
+ }
+
+</style>
+<form th:action="@{/check}" enctype="multipart/form-data" id="info" method="post">
+<!-- <div class="form-group">-->
+<!--  <label>id：</label>-->
+<!--  <input type="text" name="id" id="id" class="form-control" required>-->
+<!-- </div>-->
+<!-- <div class="form-group">-->
+<!--  <label>姓名：</label>-->
+<!--  <input type="text" name="name" id="name" class="form-control" required>-->
+<!-- </div>-->
+<!-- <div class="form-group">-->
+<!--  <label>学号</label>-->
+<!--  <input type="text" name="pwd" id="pwd" class="form-control" required>-->
+<!-- </div>-->
+ <div class="form-group">
+  <input type="hidden" name="file" id="file" required>
+  <button id="btn">识别</button>
+ </div>
+</form>
+<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+<p style="color: red" th:text="${user.getName()}" th:if="${not #strings.isEmpty(user)}"></p>
+<!--<input th:value="${user.getName()}" type="text" name="name" class="form-control" placeholder="" required>-->
+<h1>html5调用摄像头并拍照</h1>
+<h3 id="support"></h3>
+<video id="video" width="720" height="720"></video>
+<button id="snap">拍照</button>
+<canvas id="canvas" style="display:none" width="720" height="720"></canvas>
+<div id="photo"></div>
+<h4>获取的base64位PNG图像</h4>
+<textarea id="text"></textarea>
+
+<script type="text/javascript">
+
+ var formData = new FormData();
+ //判断浏览器是否支持HTML5 Canvas
+ window.onload = function () {
+  try {
+   //动态创建一个canvas元 ，并获取他2Dcontext。如果出现异常则表示不支持 document.createElement("canvas").getContext("2d");
+   document.getElementById("support").innerHTML = "浏览器支持HTML5 CANVAS";
+   takePhotos();
+  } catch (e) {
+   document.getElementById("support").innerHTML = "浏览器不支持HTML5 CANVAS";
+  }
+ };
+
+
+ //拍照主函数
+ function takePhotos() {
+  //这段代 主要是获取摄像头的视频流并显示在Video 签中
+  var canvas = document.getElementById("canvas"),
+          context = canvas.getContext("2d"),
+          video = document.getElementById("video");
+
+  function successCallback(stream) {
+   // Set the source of the video element with the stream from the camera
+   if (video.mozSrcObject !== undefined) {
+    video.mozSrcObject = stream;
+   } else {
+    video.srcObject = stream;
+   }
+   video.play();
+  }
+
+  function errorCallback(error) {
+   alert('错误代码: [CODE ' + error.code + ']');
+   // Display a friendly "sorry" message to the user
+  }
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+  // Call the getUserMedia method with our callback functions
+  if (navigator.getUserMedia) {
+   navigator.getUserMedia({video: true}, successCallback, errorCallback);
+  } else {
+   alert('浏览器不支持getUserMedia.');
+   // Display a friendly "sorry" message to the user
+  }
+
+
+  //这个是拍照按钮的事件，
+  document.getElementById("snap").onclick = function () {
+   context.drawImage(video, 0, 0, 720, 720);
+   //获取浏览器页面的画布对象
+   var canvans = document.getElementById("canvas");
+   //以下开始编 数据
+   var imgData = canvans.toDataURL();
+   //将图像转换为base64数据
+   var base64Data = imgData.substr(22);
+   //将获得的base64数据设置为photo的背景图
+   document.getElementById("photo").style.backgroundImage = "url(data:image/png;base64," + base64Data + ")";
+   document.getElementById("text").innerHTML = base64Data;
+   document.getElementById("file").value = base64Data;
+  }
+
+   // data.imagbase64=base64Data;
+   // data.id = document.getElementsByName("id");
+   // data.name = document.getElementsByName("name");
+   // data.pwd = document.getElementsByName("pwd");
+   // document.getElementById("file").value = base64Data;
+   // var request = {
+   //  url: 'http://localhost:8080/camera/addUser',
+   //  method: 'POST', params: { image: base64.replace(/^.*,/, ''),
+   //   form:'info'
+   //  }, sec
+   // };
+   // Ext.Ajax.request(request);
+   // }
+
+   //  $.post("/camera/addUser",{
+   //           name:"菜鸟教程",
+   //           id:"319",
+   //           pwd:"19030500319"
+   //          },
+   //          function(formData,status){
+   //           alert("数据: \n" + data + "\n状态: " + status);
+   //          });
+ }
+ document.getElementById("snap").onclick = function () {
+  formData.append('file', $('#file').val().trim());
+  $.ajax({
+   url: '/check',
+   method: 'POST',
+   data: formData,
+   dataType: "JSON",
+   contentType: false,
+   processData: false,
+   cache: false,
+   async: false,
+   success: function () {
+    alert("请求成功")
+   }
+  });
+ }
+</script>
+
+</body>
+</html>
+

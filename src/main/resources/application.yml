@@ -1,0 +1,28 @@
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    cache: false
+    prefix: classpath:/templates/
+  datasource:
+    username: huangao
+    password: 2001214
+    url: jdbc:mysql://localhost:3306/mybatis?serverTime=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  web:
+    resources:
+      static-locations: classpath:/static/
+  influx:
+    url: http://10.212.130.46:8086
+    database: bdcloud
+
+
+mybatis:
+  type-aliases-package: com.example.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+freemarker:
+  suffix: .html
+server:
+  port: 8080

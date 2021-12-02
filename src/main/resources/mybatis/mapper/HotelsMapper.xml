@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.HotelsMapper">
+    <select id="queryHotelsList" resultType="Hotels">
+        select * from travel.Hotels;
+    </select>
+
+    <select id="queryHotelsById" parameterType="String" resultType="Hotels">
+        select * from travel.Hotels where location = #{location};
+    </select>
+
+    <insert id="addHotels" parameterType="Hotels">
+        insert into travel.Hotels(location, price,numRooms,numAvail) VALUES (#{location},#{price},#{numRooms},#{numAvail});
+    </insert>
+
+    <update id="updateHotels" parameterType="Hotels">
+        update travel.Hotels set price = #{price},numAvail=#{numAvail},numRooms=#{numRooms} where location = #{location};
+    </update>
+
+    <delete id="deleteHotels" parameterType="String">
+        delete from travel.Hotels where location = #{location};
+    </delete>
+</mapper>

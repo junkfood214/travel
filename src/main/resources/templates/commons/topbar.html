@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%;"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav id="bs-navbar" class="collapse navbar-collapse" th:fragment="topbar">
+    <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a th:href="@{/bus/list}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                公交 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a th:href="@{/bus/list}">查询全部</a></li>
+                <li ><a th:href="@{/bus/toAdd}" shiro:hasRole="'root'">增加</a></li>
+                <!--                    <li class="divider"></li>-->
+                <!--                    <li class="active"><a th:href="#">v3</a></li>-->
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a th:href="@{/hotels/list}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                酒店 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a th:href="@{/hotels/list}">查询全部</a></li>
+                <li ><a th:href="@{/hotels/toAdd}" shiro:hasRole="'root'">增加</a></li>
+                <!--                    <li class="divider"></li>-->
+                <!--                    <li class="active"><a th:href="#">v3</a></li>-->
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a th:href="@{/flights/list}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                飞机 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a th:href="@{/flights/list}">查询全部</a></li>
+                <li ><a th:href="@{/flights/toAdd}" shiro:hasRole="'root'">增加</a></li>
+                <!--                    <li class="divider"></li>-->
+                <!--                    <li class="active"><a th:href="#">v3</a></li>-->
+            </ul>
+        </li>
+        <li class="dropdown" shiro:hasRole="'root'">
+            <a th:href="@{/customers/list}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                用户 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a th:href="@{/customers/list}">查询全部</a></li>
+                <li ><a th:href="@{/customers/toAdd}" shiro:hasRole="'root'">增加</a></li>
+                <!--                    <li class="divider"></li>-->
+                <!--                    <li class="active"><a th:href="#">v3</a></li>-->
+            </ul>
+        </li>
+        <li class="dropdown" >
+            <a th:href="@{/reservations/list}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                预订 <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a shiro:hasRole="'root'" th:href="@{/reservations/list}">查询全部</a></li>
+                <li><a shiro:hasRole="'root'" th:href="@{/reservations/toAdd}">增加</a></li>
+                <li><a shiro:hasRole="'customer'" th:href="@{/customers/person}">个人</a></li>
+<!--                                    <li class="divider"></li>-->
+                <!--                    <li class="active"><a th:href="#">v3</a></li>-->
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="btn btn-sm btn-default" style="background-color:crimson" th:href="@{/user/logout}">登出</a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>添加人员</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script th:src="@{/js/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_js_bootstrap.js}"></script>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_css_bootstrap.css}">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+
+                    <a class="navbar-brand" href="#" >AI人脸识别</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--                <li class="active"><a href="#" style="background-color:skyblue">增添 <span class="sr-only">(current)</span></a><>-->
+                <!--                <li><a href="#" style="background-color:skyblue" >删除</a><>-->
+                <li><a th:href="@{/users}">主页</a></li>
+                <li><a th:href="@{/toAdd}">增添</a></li>
+                <li class="active"><a th:href="@{/log}">日志 <span class="sr-only">(current)</span></a></li>
+                <li><a th:href="@{/camera}">拍照</a></li>
+            </ul>
+            <ul  class="nav navbar-nav navbar-right">
+                <a class="btn btn-default btn-lg" style="background-color:crimson" th:href="@{/user/logout}">登出</a>
+            </ul>
+            <!--            <ul class="nav navbar-nav navbar-right">-->
+            <!--                <li><a href="#">帮助</a><>-->
+            <!--            </ul>-->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div class="center">
+        <style>
+            .container {
+                position: relative;
+                width: 1000px;
+                height: 700px;}
+
+            .center {
+                position: absolute;
+                top:40%;
+                left:30%;
+                -webkit-transform:translate(-50%,-50%);
+                transform:translate(-50%,-50%);
+                width: 1000px;
+                height: 600px;}
+            </style>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="checklog:${checklogs}">
+        <td th:text="${checklog.getName()}"></td>
+        <td th:text="${checklog.getTime()}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+<a class="btn btn-sm btn-danger" th:href="@{/user/logout}">登出</a>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div>
+        <p class="navbar-text">
+            小组成员：黄敖，郭浩杰，马子杰
+        </p>
+    </div>
+    <ul  class="nav navbar-nav navbar-right">
+        <button type="button" class="btn btn-default btn-lg" style="background-color:grey;color:white" >帮助</button>
+    </ul>
+    <!--            <ul class="nav navbar-nav navbar-right">-->
+    <!--                <li><a href="#">帮助</a></li>-->
+    <!--            </ul>-->
+</nav>
+</body>
+</html>

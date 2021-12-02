@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>添加人员</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script th:src="@{/js/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_js_bootstrap.js}"></script>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_css_bootstrap.css}">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+<body>
+<form class="form-signin" th:action="@{/user/login}">
+    <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+    <input type="text" name="username" class="form-control" required="" autofocus="">
+    <input type="password" name="password" class="form-control"  required="">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">[[#{login.btn}]]</button>
+    <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+    <a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
+    <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+</form>
+</body>
+</html>

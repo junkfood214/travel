@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BusMapper">
+    <select id="queryBusList" resultType="Bus">
+        select * from travel.bus;
+    </select>
+
+    <select id="queryBusById" parameterType="String" resultType="Bus">
+        select * from travel.bus where location = #{location};
+    </select>
+
+    <insert id="addBus" parameterType="Bus">
+        insert into travel.bus(location, price, numBus,numAvail) VALUES (#{location},#{price},#{numBus},#{numAvail});
+    </insert>
+
+    <update id="updateBus" parameterType="Bus">
+        update travel.bus set price = #{price},numBus=#{numBus},numAvail=#{numAvail} where location = #{location};
+    </update>
+
+    <delete id="deleteBus" parameterType="String">
+        delete from travel.bus where location = #{location};
+    </delete>
+</mapper>

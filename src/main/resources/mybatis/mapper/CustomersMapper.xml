@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CustomersMapper">
+    <select id="queryCustomersList" resultType="Customers">
+        select * from travel.Customers;
+    </select>
+
+    <select id="queryCustomersById" parameterType="String" resultType="Customers">
+        select * from travel.Customers where custName = #{custName};
+    </select>
+
+    <insert id="addCustomers" parameterType="Customers">
+        insert into travel.Customers(custName, custID) VALUES (#{custName},#{custID});
+    </insert>
+
+    <update id="updateCustomers" parameterType="Customers">
+        update travel.Customers set custID = #{custID} where custName = #{custName};
+    </update>
+
+    <delete id="deleteCustomers" parameterType="String">
+        delete from travel.Customers where custName = #{custName};
+    </delete>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ReservationsMapper">
+    <select id="queryReservationsList" resultType="Reservations">
+        select * from travel.Reservations;
+    </select>
+
+    <select id="queryReservationsById" parameterType="String" resultType="Reservations">
+        select * from travel.Reservations where resvKey = #{resvKey};
+    </select>
+
+    <select id="queryReservationsByCustName" parameterType="String" resultType="Reservations">
+        select * from travel.reservations where custName = #{custName};
+    </select>
+
+    <insert id="addReservations" parameterType="Reservations">
+        insert into travel.Reservations(custName, resvType,resvKey,resvContent) VALUES (#{custName},#{resvType},#{resvKey},#{resvContent});
+    </insert>
+
+    <update id="updateReservations" parameterType="Reservations">
+        update travel.Reservations set custName = #{custName},resvType=#{resvType},resvContent=#{resvContent} where resvKey = #{resvKey};
+    </update>
+
+    <delete id="deleteReservations" parameterType="String">
+        delete from travel.Reservations where resvKey = #{resvKey};
+    </delete>
+
+    <delete id="deleteReservationsByCustomer" parameterType="Reservations">
+        delete from travel.Reservations where custName = #{custName} and resvType = #{resvType} and resvContent = #{resvContent};
+    </delete>
+</mapper>

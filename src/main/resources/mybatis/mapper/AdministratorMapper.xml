@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AdministratorMapper">
+    <select id="queryAdministratorList" resultType="Administrator">
+        select * from administrator;
+    </select>
+
+    <select id="queryAdministratorById" resultType="Administrator">
+        select * from administrator where name = #{name};
+    </select>
+
+    <insert id="addAdministrator" parameterType="Administrator">
+        insert into mybatis.administrator(name, pwd) VALUES (#{name},#{pwd});
+    </insert>
+
+    <update id="updateAdministrator" parameterType="Administrator">
+        update administrator set name = #{name},pwd=#{pwd} where id = #{id};
+    </update>
+
+    <delete id="deleteAdministrator" parameterType="int">
+        delete from administrator where id = #{id};
+    </delete>
+</mapper>

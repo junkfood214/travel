@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ChecklogMapper">
+    <select id="queryAll" resultType="Checklog">
+        select * from checklog;
+    </select>
+
+    <select id="queryById" resultType="Checklog">
+        select * from checklog where name = #{name};
+    </select>
+
+    <insert id="insert" parameterType="Checklog">
+        insert into checklog(name,time) VALUES (#{name},#{time});
+    </insert>
+
+    <select id="queryByTime" resultType="Checklog">
+        select
+        name, time
+        from mybatis.checklog
+        <where>
+            <if test="name != null and name != ''">
+                and time&gt;=#{start}
+            </if>
+            <if test="time != null">
+                and time&lt;=#{end}
+            </if>
+        </where>
+    </select>
+
+</mapper>
+<!--    <select id="queryByTime" parameterType="Checklog">-->
+<!--        select-->
+<!--        name, time-->
+<!--        from mybatis.checklog-->
+<!--        <where>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                and time&gt;= #{start}-->
+<!--            </if>-->
+<!--            <if test="time != null">-->
+<!--                and time&lt;=# {end}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->

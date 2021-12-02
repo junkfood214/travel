@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%;"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>列表</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script th:src="@{/js/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_js_bootstrap.js}"></script>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/http_stackpath.bootstrapcdn.com_bootstrap_3.4.1_css_bootstrap.css}">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+<body style="height: 100%;">
+<div th:replace="~{commons/navbar-brand::navbar-brand}"></div>
+<div th:replace="~{commons/topbar::topbar}"></div>
+<div class="container">
+        <style>
+            .container {
+                position: relative;
+                width: 1000px;
+                height: 700px;
+            }
+
+        </style>
+<table class="table table-hover" >
+    <caption>飞机</caption>
+    <thead>
+    <tr>
+        <th>位置</th>
+        <th>价格</th>
+        <th>总数</th>
+        <th>可用</th>
+        <th>出发地</th>
+        <th>到达地</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="flight:${flights}" >
+        <td th:text="${flight.getFlightNum()}"></td>
+        <td th:text="${flight.getPrice()}"></td>
+        <td th:text="${flight.getNumSeats()}"></td>
+        <td th:text="${flight.getNumAvail()}"></td>
+        <td th:text="${flight.getFromCity()}"></td>
+        <td th:text="${flight.getArivCity()}"></td>
+        <td >
+            <a class="btn btn-sm btn-primary" shiro:hasRole="'root'" th:href="@{/flights/search/{flightNum}(flightNum=${flight.getFlightNum()})}">编辑</a>
+            <a class="btn btn-sm btn-danger" shiro:hasRole="'root'" th:href="@{/flights/delete/{flightNum}(flightNum=${flight.getFlightNum()})}">删除</a>
+            <a class="btn btn-sm btn-success" shiro:hasRole="'customer'" th:href="@{/flights/reservations/{flightNum}(flightNum=${flight.getFlightNum()})}">预订</a>
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
